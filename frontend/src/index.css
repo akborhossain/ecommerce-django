@@ -1,4 +1,11 @@
 
 main{
-    min-width: 80vh;
+    min-height: 80vh;
+}
+
+h3{
+    padding: 1rem;
+}
+.rating span{
+    margin: 0.1rem;
 }
