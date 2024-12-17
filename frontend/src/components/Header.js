@@ -20,7 +20,7 @@ function Header() {
             <LinkContainer to="/login">
                 <Nav.Link >Login</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/card">
+            <LinkContainer to="/cart">
                 <Nav.Link > <i className="fas fa-shopping-cart"> </i> Card</Nav.Link>
             </LinkContainer>
             </Nav>

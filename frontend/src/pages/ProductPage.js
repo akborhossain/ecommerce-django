@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Image, ListGroup, Button, Card } from "react-bootstrap";
 import Rating from "../components/Rating";
@@ -8,19 +8,20 @@ import Message from "../components/Message";
 
 import { listProductDetails } from "../actions/productActions";
 
-function ProductPage(history) {
+function ProductPage() {
   const { id } = useParams();
   const [qty, setQty] = useState(1);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
   useEffect(() => {
     dispatch(listProductDetails(id));
   }, [dispatch, id]);
-  const addToCartHandler=()=>{
-    history.push(`/cart/${id}?qty=${qty}`)
-}
-  
+
+  const addToCartHandler = () => {
+    navigate(`/cart/${id}?qty=${qty}`);
+  };
 
   return (
     <div>
@@ -106,7 +107,6 @@ function ProductPage(history) {
                 </ListGroup.Item>
               </ListGroup>
             </Col>
-
           </Row>
           <Row className="my-5">
             <Col>
