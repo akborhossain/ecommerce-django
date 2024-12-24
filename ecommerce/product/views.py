@@ -7,6 +7,15 @@ from .models import *
 from .serializers import *
 # Create your views here.
 
+class UserProfileView(APIView):
+    def get(self, request):
+        user= request.user
+        if user is not None:           
+            serializerData= UserSerializer(user, many=False)
+            return Response(serializerData.data)
+        return JsonResponse({"status":400, "message":"Username is null"})
+
+
 class ProductView(APIView):
     def get(self, request, pk=None):
         if pk is not None:
