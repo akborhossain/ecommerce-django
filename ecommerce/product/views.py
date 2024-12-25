@@ -10,6 +10,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 # Create your views here.
 
+<<<<<<< HEAD
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     def validate(self, attrs: Dict[str, Any]) -> Dict[str, str]:
@@ -20,6 +21,16 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class=MyTokenObtainPairSerializer
+=======
+class UserProfileView(APIView):
+    def get(self, request):
+        user= request.user
+        if user is not None:           
+            serializerData= UserSerializer(user, many=False)
+            return Response(serializerData.data)
+        return JsonResponse({"status":400, "message":"Username is null"})
+
+>>>>>>> d83d40805d2cc0daeb97ebe0a2bcc8245a688ba4
 
 class ProductView(APIView):
     def get(self, request, pk=None):
