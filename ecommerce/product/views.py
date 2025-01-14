@@ -38,7 +38,7 @@ class UserProfileView(APIView):
         if user is not None:           
             serializerData= UserSerializer(user, many=False)
             return Response(serializerData.data)
-        return JsonResponse({"status":400, "message":"Username is null"})
+        return JsonResponse({"status":status.HTTP_400_BAD_REQUEST, "message":"Username is null"})
 
 class UserView(APIView):
     def get_permissions(self):
@@ -54,14 +54,12 @@ class RegisterUser(APIView):
     def post(self,request):
         data= request.data
         try:
-
             user= User.objects.create(
             first_name=data['first_name'],
             last_name=data['last_name'],
             username=data['email'],
             email=data['email'],
-            password= make_password(data['password'])
-            )
+            password= make_password(data['password']))
             serializer = UserSerializerWithToken(user, many=False)
             return Response(serializer.data)
         except:
