@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
+import LoginPage from './pages/LoginPage'
 function App() {
   return (
     <Router>
@@ -13,6 +14,7 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<HomePage />} exact />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/product/:id" element={<ProductPage/>}/>
             <Route path="/cart/:id?" element={<CartPage/>} />
           </Routes>
