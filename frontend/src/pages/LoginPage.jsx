@@ -6,6 +6,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import FormContainer from "../components/FormContainer";
 import { login } from "../actions/userAction";
+
 function LoginPage() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ function LoginPage() {
       </Form>
       <Row className="py-3">
         <Col>
-          If you don't have a account, please{" "}
+          If you don't have an account, please{" "}
           <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
             Register
           </Link>

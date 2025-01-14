@@ -49,22 +49,29 @@ class UserView(APIView):
         user=User.objects.all()         
         serializerData= UserSerializer(user, many=True)
         return Response(serializerData.data)
-
 class RegisterUser(APIView):
-    def post(self,request):
-        data= request.data
+    def post(self, request):
+        data = request.data
         try:
-            user= User.objects.create(
-            first_name=data['first_name'],
-            last_name=data['last_name'],
-            username=data['email'],
-            email=data['email'],
-            password= make_password(data['password']))
+            user = User.objects.create(
+                first_name=data['first_name'],
+                last_name=data['last_name'],
+                username=data['email'],
+                email=data['email'],
+                password=make_password(data['password'])
+            )
             serializer = UserSerializerWithToken(user, many=False)
-            return Response(serializer.data)
-        except:
-            message={'detail':'This email is already exist'}
-            return JsonResponse({'message':message, 'status':status.HTTP_400_BAD_REQUEST})
+            return JsonResponse({
+                'message': 'Registration successful',
+                'status': status.HTTP_200_OK,
+                'data': serializer.data
+            })
+        except Exception as e:
+            return JsonResponse({
+                'message': f"Something's wrong: {str(e)}",
+                'status': status.HTTP_400_BAD_REQUEST
+            })
+
 
 class ProductView(APIView):
     def get(self, request, pk=None):
