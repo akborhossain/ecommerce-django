@@ -32,13 +32,45 @@ class UserProfileView(APIView):
     def get_permissions(self):
         if self.request.method == 'GET':
             return [IsAuthenticated()]
+        elif self.request.method=='PUT':
+            return [IsAuthenticated()]
         
     def get(self, request):
         user= request.user
         if user is not None:           
             serializerData= UserSerializer(user, many=False)
             return Response(serializerData.data)
-        return JsonResponse({"status":status.HTTP_400_BAD_REQUEST, "message":"Username is null"})
+        return JsonResponse({"status":status.HTTP_400_BAD_REQUEST, "detail":"Username is null"})
+    
+    def put(self, request):
+        user= request.user
+        data=request.data
+        if user is not None:
+            try:
+                # Update user fields
+                user.first_name = data.get('first_name', user.first_name)
+                user.last_name = data.get('last_name', user.last_name)
+                user.email = data.get('email', user.email)
+                user.username = data.get('username', user.username)
+                
+                if data.get('password') and data.get('password').strip():
+                    user.password = make_password(data['password'])
+
+                user.save()
+
+                serializer = UserSerializerWithToken(user, many=False)
+                return Response(serializer.data, status=status.HTTP_200_OK, detail='Your profile updated successfully.')
+
+            except Exception as e:
+                return Response(
+                    {'detail': f"An error occurred: {str(e)}"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        else:
+            return Response(
+                {'detail': 'Authentication required to update user details.'},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
 
 class UserView(APIView):
     def get_permissions(self):
