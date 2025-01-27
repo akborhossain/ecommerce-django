@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { USER_PROFILE_RESET } from '../constants/userConstants'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { getUserDetails,updateUserProfile } from "../actions/userAction";
 
 function ProfilePage() {
@@ -33,7 +33,7 @@ function ProfilePage() {
         }else{
             if(!user || !user.name || success){
                 dispatch({
-                  type: USER_PROFILE_RESET
+                  type: USER_UPDATE_PROFILE_RESET
                 })
                 dispatch(getUserDetails('profile'))
             }else{
