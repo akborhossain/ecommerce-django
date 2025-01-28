@@ -132,7 +132,7 @@ export const getUserDetails = (id) => async (dispatch,getState) => {
         } else {
             dispatch({
                 type: USER_DETAILS_FAIL,
-                payload: data.detail || 'Failed.',
+                payload: data.detail || 'Failed to get user profile!',
             });
         }     
     

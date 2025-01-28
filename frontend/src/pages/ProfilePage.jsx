@@ -21,6 +21,7 @@ function ProfilePage() {
       const dispatch = useDispatch();
       const userDetails = useSelector((state) => state.userDetails);
       const { error, loading, user } = userDetails;
+
       const userLogin = useSelector((state) => state.userLogin);
       const { userInfo } = userLogin;
 
@@ -60,10 +61,73 @@ function ProfilePage() {
             setMessage("");
         }
       };
+
   return (
     <Row>
       <Col md={3}>
         <h2> Profile </h2>
+        {message && <Message variant="danger">{message}</Message>}
+      {error && <Message variant="danger">{typeof error === 'string' ? error : JSON.stringify(error)}</Message>}
+      {loading && <Loader />}
+      <Form onSubmit={submitHandler}>
+        <Form.Group controlId="first_name">
+          <Form.Label>First Name</Form.Label>
+          <Form.Control
+            required
+            type="name"
+            placeholder="Enter first name"
+            value={first_name}
+            onChange={(e) => setFirstName(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="last_name">
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control
+            required
+            type="name"
+            placeholder="Enter last name"
+            value={last_name}
+            onChange={(e) => setLastName(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="email">
+          <Form.Label> Email Address</Form.Label>
+          <Form.Control
+            required
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="password">
+          <Form.Label> Password</Form.Label>
+          <Form.Control
+          
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="confirm_password">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+          
+            type="password"
+            placeholder="Enter confirm password"
+            value={confirm_password}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+        <Button className="my-2" type="submit" variant="primary">
+          Update
+        </Button>
+      </Form>
       </Col>
       <Col md={9}>
         <h2> My Orders</h2>
