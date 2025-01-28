@@ -2,29 +2,41 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/FormContainer";
+import CheckoutSteps from "../components/CheckoutSteps";
+
+import {saveShippingAddress} from '../actions/cartActions'
 
 function ShippingPage() {
 
   const cart=useSelector(state=> state.cart)
   const {shippingAddress}=cart
-
-  const [address, setAddress] = useState("");
-  const [postOffice, setPostOffice] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [union, setUnion] = useState("");
-  const [policeStation, setPoliceStation] = useState("");
-  const [district, setDistrict] = useState("");
-  const [division, setDivision] = useState("");
+  const dispatch=useDispatch();
+  const [address, setAddress] = useState(shippingAddress.address);
+  const [postOffice, setPostOffice] = useState(shippingAddress.postOffice);
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
+  const [union, setUnion] = useState(shippingAddress.union);
+  const [policeStation, setPoliceStation] = useState(shippingAddress.policeStation);
+  const [district, setDistrict] = useState(shippingAddress.district);
+  const [division, setDivision] = useState(shippingAddress.division);
 
   const submitHandler =(e)=>{
     e.preventDefault()
-
+    dispatch(saveShippingAddress({
+      address,
+      union,
+      postOffice,
+      postalCode,
+      policeStation,
+      district,
+      division
+    }))
 
   }
 
 
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="address">
           <Form.Label>Address</Form.Label>
@@ -32,7 +44,7 @@ function ShippingPage() {
             required
             type="text"
             placeholder="Enter address"
-            value={address}
+            value={address ? address:''}
             onChange={(e) => setAddress(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -42,7 +54,7 @@ function ShippingPage() {
             required
             type="text"
             placeholder="Enter City or Union"
-            value={union}
+            value={union ? union:''}
             onChange={(e) => setUnion(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -52,7 +64,7 @@ function ShippingPage() {
             required
             type="text"
             placeholder="Enter post office"
-            value={postOffice}
+            value={postOffice ? postOffice:''}
             onChange={(e) => setPostOffice(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -62,7 +74,7 @@ function ShippingPage() {
             required
             type="text"
             placeholder="Enter postal code"
-            value={postalCode}
+            value={postalCode ? postalCode:''}
             onChange={(e) => setPostalCode(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -72,7 +84,7 @@ function ShippingPage() {
             required
             type="text"
             placeholder="Enter thana"
-            value={policeStation}
+            value={policeStation ? policeStation:''}
             onChange={(e) => setPoliceStation(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -82,7 +94,7 @@ function ShippingPage() {
             required
             type="text"
             placeholder="Enter district"
-            value={district}
+            value={district ? district:''}
             onChange={(e) => setDistrict(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -92,7 +104,7 @@ function ShippingPage() {
             required
             type="text"
             placeholder="Enter division"
-            value={division}
+            value={division ? division:''}
             onChange={(e) => setDivision(e.target.value)}
           ></Form.Control>
         </Form.Group>
