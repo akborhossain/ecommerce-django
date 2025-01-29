@@ -73,7 +73,7 @@ class UserProfileView(APIView):
                 serializer = UserSerializerWithToken(user, many=False)
                 return Response(
                     {
-                        "message": "Your profile updated successfully.",
+                        "detail": "Your profile updated successfully.",
                         "data": serializer.data,
                     },
                     status=status.HTTP_200_OK,
