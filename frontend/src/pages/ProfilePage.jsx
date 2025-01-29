@@ -25,8 +25,8 @@ function ProfilePage() {
       const userLogin = useSelector((state) => state.userLogin);
       const { userInfo } = userLogin;
 
-      const userUpdateProfile = useSelector((state) => state.updateUserProfile);
-      const { success } = userUpdateProfile;
+      const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+      const { success } = userUpdateProfile || {};
 
       useEffect(() => {
         if (!userInfo) {
