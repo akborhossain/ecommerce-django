@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
     _id=serializers.SerializerMethodField(read_only=True)
     class Meta:
         model= User
-        fields=['id','_id', 'username', 'email', 'name', 'is_staff']
+        fields=['id','_id', 'first_name', 'last_name', 'username', 'email', 'name', 'is_staff']
 
     def get_name(self,obj):
         name = obj.first_name +" "+ obj.last_name
