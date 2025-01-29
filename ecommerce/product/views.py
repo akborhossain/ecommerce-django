@@ -39,7 +39,7 @@ class UserProfileView(APIView):
         user= request.user
         if user is not None:           
             serializerData= UserSerializer(user, many=False)
-            return Response(serializerData.data)
+            return Response(serializerData.data, status=status.HTTP_200_OK)
         return JsonResponse({"status":status.HTTP_400_BAD_REQUEST, "detail":"Username is null"})
     
     def put(self, request):
