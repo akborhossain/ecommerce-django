@@ -120,14 +120,14 @@ export const getUserDetails = (id) => async (dispatch,getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const { data } = await axios.get(
+        const { data, status } = await axios.get(
             `users/${id}/`,
             config
         )
-        if (data.status === 200) {
+        if (status === 200) {
             dispatch({
                 type: USER_DETAILS_SUCCESS,
-                payload: data.data,
+                payload: data,
             });          
         } else {
             dispatch({
@@ -162,12 +162,12 @@ export const updateUserProfile = (user) => async (dispatch,getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const { data } = await axios.put(
+        const {  data, status } = await axios.put(
             `users/profile/`,
             user,
             config
         )
-        if (data.status === 200) {
+        if (status === 200) {
             dispatch({
                 type: USER_UPDATE_PROFILE_SUCCESS,
                 payload: data.data,
@@ -176,6 +176,7 @@ export const updateUserProfile = (user) => async (dispatch,getState) => {
                 type: USER_LOGIN_SUCCESS,
                 payload: data.data
             });
+
             localStorage.setItem('userInfo', JSON.stringify(data));
         } else {
             dispatch({

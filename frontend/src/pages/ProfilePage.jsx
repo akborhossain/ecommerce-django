@@ -21,6 +21,7 @@ function ProfilePage() {
       const dispatch = useDispatch();
       const userDetails = useSelector((state) => state.userDetails);
       const { error, loading, user } = userDetails;
+      console.log(userDetails)
 
       const userLogin = useSelector((state) => state.userLogin);
       const { userInfo } = userLogin;
