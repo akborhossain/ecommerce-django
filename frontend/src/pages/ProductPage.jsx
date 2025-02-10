@@ -41,11 +41,8 @@ function ProductPage() {
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                    color={"#f8e825"}
-                  />
+                  <Rating value={product.rating} text={`${product.numReviews} reviews`}
+                    color={"#f8e825"} />
                 </ListGroup.Item>
                 <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
                 <ListGroup.Item>
@@ -85,19 +82,14 @@ function ProductPage() {
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                      <Button
-                        onClick={addToCartHandler}
-                        className="btn-block"
-                        disabled={product.countInStock === 0}
+                      <Button onClick={addToCartHandler} className="btn-block" disabled={product.countInStock === 0}
                         type="button"
                       >
                         Add to Cart
                       </Button>
                     </Col>
                     <Col>
-                      <Button
-                        className="btn-block"
-                        disabled={product.countInStock === 0}
+                      <Button className="btn-block" disabled={product.countInStock === 0}
                         type="button"
                       >
                         Buy Now
