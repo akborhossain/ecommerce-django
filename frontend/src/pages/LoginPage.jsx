@@ -18,9 +18,10 @@ function LoginPage() {
   const { error, loading, userInfo } = userLogin;
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      navigate(`/${redirect}`);
     }
   }, [navigate, userInfo, redirect]);
+  
 
   const submitHandler = (e) => {
     e.preventDefault();

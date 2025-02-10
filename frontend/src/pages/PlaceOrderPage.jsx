@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {  Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import Message from '../components/Message';
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
 
 function PlaceOrderPage() {
-  const cart=useSelector(state=>state.cart)
+  const cart = useSelector(state => state.cart)
+  const placeOrder =()=>{
+    console.log("place order")
+  }
   return (
     <div>
       <CheckoutSteps step1 step2 step3 step4 />
@@ -17,44 +20,46 @@ function PlaceOrderPage() {
               <h2> Shipping</h2>
               <p>
                 <strong>
-                  Shipping: 
+                  Shipping:
                 </strong>
-                {cart.shippingAddress.address},{cart.shippingAddress.union},{cart.shippingAddress.postOffice}
+                {cart.shippingAddress.address},{cart.shippingAddress.union},{cart.shippingAddress.postOffice},
+                {' '}
+                {cart.shippingAddress.postalCode},
+                {' '}
+                {cart.shippingAddress.policeStation},
+                {' '}
+                {cart.shippingAddress.district},
+                {' '}
+                {cart.shippingAddress.division}
               </p>
             </ListGroup.Item>
+            
             <ListGroup.Item>
               <h2> Payment Method</h2>
               <p>
                 <strong>
-                  Method: 
-                </strong>
-                {cart.paymentMethod}
-              </p>
-            </ListGroup.Item>
-
-            <ListGroup.Item>
-              <h2> Payment Method</h2>
-              <p>
-                <strong>
-                  Method: 
+                  Method:
                 </strong>
                 {cart.paymentMethod}
               </p>
             </ListGroup.Item>
             <ListGroup.Item>
               <h2> Order Item</h2>
-              {cart.cartItems.length ===0 ? <Message variant='info'>
+              {cart.cartItems.length === 0 ? <Message variant='info'>
                 Your cart is empty
-              </Message>:(
+              </Message> : (
                 <ListGroup variant='flush'>
-                  {cart.cartItems.map((item, index)=>(
+                  {cart.cartItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
                         <Col md={1}>
-                          <Image src={item.image} alt={item.name} fluid rounded/>
+                          <Image src={item.image} alt={item.name} fluid rounded />
                         </Col>
                         <Col>
-                        <Link to={`/product/${index.product}`}> {item.name} </Link>
+                          <Link to={`/product/${item.product}`}> {item.name} </Link>
+                        </Col>
+                        <Col md={4}>
+                        {item.qty} x ${item.price} = ${(item.qty*item.price).toFixed(2)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -62,9 +67,46 @@ function PlaceOrderPage() {
 
                 </ListGroup>
               )}
-  
+
             </ListGroup.Item>
           </ListGroup>
+        </Col>
+        <Col md={4}>
+        <Card>
+          <ListGroup variant="flush">
+              <ListGroup.Item>
+                <h2>
+                  Order Summary
+                </h2>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col> Item:</Col>
+                  <Col>${cart.itemsPrice}</Col>
+                </Row>
+              </ListGroup.Item>              <ListGroup.Item>
+                <Row>
+                  <Col> Shipping Cost</Col>
+                  <Col>${cart.shippingCost}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col> Total</Col>
+                  <Col>${cart.totalPrive}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button type="button" className="btn-block"
+                disabled={cart.cartItems ===0 }
+                onClick={placeOrder}>
+                  Place Order
+                </Button>
+              </ListGroup.Item>
+
+
+          </ListGroup>
+        </Card>
         </Col>
       </Row>
     </div>

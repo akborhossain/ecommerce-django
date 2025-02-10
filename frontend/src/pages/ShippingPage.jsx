@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import FormContainer from "../components/FormContainer";
 import CheckoutSteps from "../components/CheckoutSteps";
 
@@ -11,6 +13,8 @@ function ShippingPage() {
   const cart = useSelector(state => state.cart)
   const { shippingAddress } = cart
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Get the navigate function
+  
   const [address, setAddress] = useState(shippingAddress.address);
   const [postOffice, setPostOffice] = useState(shippingAddress.postOffice);
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
@@ -30,6 +34,7 @@ function ShippingPage() {
       district,
       division
     }))
+    navigate('/payment')
 
   }
 
