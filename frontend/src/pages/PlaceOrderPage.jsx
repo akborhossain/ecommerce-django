@@ -7,6 +7,9 @@ import CheckoutSteps from "../components/CheckoutSteps";
 
 function PlaceOrderPage() {
   const cart = useSelector(state => state.cart)
+  cart.itemsPrice= cart.cartItems.reduce((acc, item)=> acc+item.price*item.qty, 0).toFixed(2)
+  cart.shippingCost=(cart.itemsPrice>100 ?0 : 10).toFixed(2)
+  cart.totalPrive=(Number(cart.itemsPrice)+Number(cart.shippingCost)).toFixed(2)
   const placeOrder =()=>{
     console.log("place order")
   }
