@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from product.models import *
 from product.serializers import *
+from .serializers import *
 from rest_framework import status
 # Create your views here.
 
@@ -30,4 +31,31 @@ class Order(APIView):
                 totalPrice=data['totalPrice']
             )
 
-        return JsonResponse({"status":status.HTTP_200_OK, "detail":"Username is null"})
+            shipping= ShippingAddress.objects.create(
+                order=order,
+                address=data['shippingAddress']['address'],
+                union=data['shippingAddress']['union'],
+                postOffice=data['shippingAddress']['postOffice'],
+                postalCode=data['shippingAddress']['postalCode'],
+                policeStation=data['shippingAddress']['policeStation'],
+                district=data['shippingAddress']['district'],
+                division=data['shippingAddress']['division'],
+                country="Bangladesh",
+            )
+            for i in orderItems:
+                product= Product.objects.get(_id=i['product'])
+                item=OrderItem.objects.create(
+                    product=product,
+                    order= order,
+                    name=product.name,
+                    qty=i['qty'],
+                    price=i['price'],
+                    image=product.image.url,
+                )
+                product.countInStock-=item.qty
+                product.save()
+
+            
+            serializer= OrderSerializer(order, many=False)
+
+            return JsonResponse({"status":status.HTTP_200_OK, "detail":"Order is successfull", "data":serializer.data})

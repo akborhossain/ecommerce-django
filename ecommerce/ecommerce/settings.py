@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "corsheaders",
     #"product.apps.ProductConfig",
     "product",
+    "orders",
 ]
 
 REST_FRAMEWORK = {

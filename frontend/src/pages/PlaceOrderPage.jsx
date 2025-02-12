@@ -1,17 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import Message from '../components/Message';
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
-
+import { createOrder} from '../actions/orderActions'
 function PlaceOrderPage() {
+  const orderCreate = useSelector(state=> state.orderCreate)
+  const { order, error, success } = orderCreate
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cart = useSelector(state => state.cart)
   cart.itemsPrice= cart.cartItems.reduce((acc, item)=> acc+item.price*item.qty, 0).toFixed(2)
   cart.shippingCost=(cart.itemsPrice>100 ?0 : 10).toFixed(2)
   cart.totalPrive=(Number(cart.itemsPrice)+Number(cart.shippingCost)).toFixed(2)
+  if(!cart.paymentMethod){
+    navigate('/payment')
+  }
+  useEffect(()=>{
+    if(success){
+      navigate(`/order/${order._id}`)
+    }
+  },[success, navigate])
   const placeOrder =()=>{
+
     console.log("place order")
+    dispatch(createOrder({
+      orderItems: cart.cartItems,
+      shippingAddress: cart.shippingAddress,
+      paymentMethod: cart.paymentMethod,
+      itemsPrice: cart.itemsPrice,
+      shippingCost: cart.shippingCost,
+      totalPrive: cart.totalPrive,
+    }))
   }
   return (
     <div>
@@ -98,6 +119,9 @@ function PlaceOrderPage() {
                   <Col> Total</Col>
                   <Col>${cart.totalPrive}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <Message variant='danger'>{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button type="button" className="btn-block"
