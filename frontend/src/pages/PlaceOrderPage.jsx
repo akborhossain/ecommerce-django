@@ -5,6 +5,7 @@ import Message from '../components/Message';
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { createOrder} from '../actions/orderActions'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 function PlaceOrderPage() {
   const orderCreate = useSelector(state=> state.orderCreate)
   const { order, error, success } = orderCreate
@@ -13,13 +14,16 @@ function PlaceOrderPage() {
   const cart = useSelector(state => state.cart)
   cart.itemsPrice= cart.cartItems.reduce((acc, item)=> acc+item.price*item.qty, 0).toFixed(2)
   cart.shippingCost=(cart.itemsPrice>100 ?0 : 10).toFixed(2)
-  cart.totalPrive=(Number(cart.itemsPrice)+Number(cart.shippingCost)).toFixed(2)
+  cart.totalPrice=(Number(cart.itemsPrice)+Number(cart.shippingCost)).toFixed(2)
   if(!cart.paymentMethod){
     navigate('/payment')
   }
   useEffect(()=>{
     if(success){
       navigate(`/order/${order._id}`)
+      dispatch({
+        type: ORDER_CREATE_RESET
+      })
     }
   },[success, navigate])
   const placeOrder =()=>{
@@ -31,7 +35,7 @@ function PlaceOrderPage() {
       paymentMethod: cart.paymentMethod,
       itemsPrice: cart.itemsPrice,
       shippingCost: cart.shippingCost,
-      totalPrive: cart.totalPrive,
+      totalPrice: cart.totalPrice,
     }))
   }
   return (
@@ -117,7 +121,7 @@ function PlaceOrderPage() {
               <ListGroup.Item>
                 <Row>
                   <Col> Total</Col>
-                  <Col>${cart.totalPrive}</Col>
+                  <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

@@ -2,8 +2,10 @@ import {
   CART_ADD_ITEM, 
   CART_REMOVE_ITEM, 
   SAVE_SHIPPING_ADDRESS,
-  SAVE_PAYMENT_METHOD 
+  SAVE_PAYMENT_METHOD,
+  CART_CLEAR_ITEM
 } from "../constants/cartConstants";
+
 
 export const cartReducer = (state = { cartItems: [], shippingAddresss: {} }, action) => {
   switch (action.type) {
@@ -40,6 +42,11 @@ export const cartReducer = (state = { cartItems: [], shippingAddresss: {} }, act
       return {
         ...state,
         paymentMethod: action.payload
+      }
+    case CART_CLEAR_ITEM:
+      return {
+        ...state,
+        cartItems: []
       }
 
     default:
