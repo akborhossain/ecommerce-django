@@ -15,6 +15,8 @@ class OrderView(APIView):
     def get_permissions(self):
         if self.request.method == 'POST':
             return [IsAuthenticated()]
+        if self.request.method == 'GET':
+            return [IsAuthenticated()]
     def post(self, request):
         user=request.user
         data=request.data
@@ -58,4 +60,27 @@ class OrderView(APIView):
             
             serializer= OrderSerializer(order, many=False)
 
-            return JsonResponse({"status":status.HTTP_200_OK, "detail":"Order is successfull", "data":serializer.data})
+            return JsonResponse({"status":status.HTTP_200_OK, "detail":"Order is created successfull", "data":serializer.data})
+        
+    def get(self, request, pk=None):
+        user=request.user
+        print(user)
+        if pk is not None:
+            try:
+                order =Order.objects.get(_id=pk)              
+                if user.is_staff or order.createdBy == user:
+                    serializer = OrderSerializer(order, many=False)
+                    return JsonResponse({ "status":status.HTTP_200_OK, "detail": "Order get successfully", "data": serializer.data })
+                else:
+                    return JsonResponse({ "status":status.HTTP_400_BAD_REQUEST, "detail": "Not authorized to view this order" })
+            except:
+                return JsonResponse({ "status":status.HTTP_400_BAD_REQUEST, "detail": "Order is not exist!" })
+        else:
+            try:
+                orders = Order.objects.filter(createdBy=user)           
+                serializer = OrderSerializer(orders, many=True)
+                return JsonResponse({"status": status.HTTP_200_OK,"detail": "Orders retrieved successfully","data": serializer.data})
+            except:
+                return JsonResponse({"status": status.HTTP_400_BAD_REQUEST, "detail": "No orders found for this user"})
+            
+        
