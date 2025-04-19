@@ -9,6 +9,7 @@ from product.models import *
 from product.serializers import *
 from .serializers import *
 from rest_framework import status
+from datetime import datetime
 # Create your views here.
 
 class OrderView(APIView):
@@ -82,5 +83,16 @@ class OrderView(APIView):
                 return JsonResponse({"status": status.HTTP_200_OK,"detail": "Orders retrieved successfully","data": serializer.data})
             except:
                 return JsonResponse({"status": status.HTTP_400_BAD_REQUEST, "detail": "No orders found for this user"})
+            
+    def put(self, request, pk=None):
+        user=request.user
+        if pk is not None:
+            order= Order.objects.get(_id=pk)
+            if order.createdBy==user:
+                order.isPaid=True
+                order.paidAt= datetime.now()
+                order.save()
+                return JsonResponse({"status": status.HTTP_200_OK, "detail": "Order update successfully"})
+
             
         
