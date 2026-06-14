@@ -11,6 +11,8 @@ import {
     USER_DETAILS_REQUEST, 
     USER_DETAILS_SUCCESS, 
     USER_DETAILS_FAIL,
+    USER_DETAILS_RESET,
+
     USER_UPDATE_PROFILE_REQUEST, 
     USER_UPDATE_PROFILE_SUCCESS, 
     USER_UPDATE_PROFILE_FAIL,
@@ -44,7 +46,7 @@ export const login = (email, password) => async (dispatch) => {
         dispatch({
             type: USER_LOGIN_FAIL,
             payload: error.response && error.response.data.detail
-                ? error.response.data.datail
+                ? error.response.data.detail
                 : error.message,
         })
     }
@@ -53,7 +55,10 @@ export const login = (email, password) => async (dispatch) => {
 export const logout=()=>(dispatch)=>{
     localStorage.removeItem('userInfo')
     dispatch({
-        type:USER_LOGOUT
+        type: USER_LOGOUT
+    })
+    dispatch({
+        type: USER_DETAILS_RESET
     })
 }
 
@@ -68,7 +73,7 @@ export const register = (first_name, last_name, email, password) => async (dispa
             }
         }
         const { data } = await axios.post(
-            'users/register/',
+            '/users/register/',
             { 'first_name':first_name, 'last_name':last_name, 'email': email, 'password': password },
             config
         )
@@ -82,7 +87,7 @@ export const register = (first_name, last_name, email, password) => async (dispa
                 payload: data.data
             });
             
-            localStorage.setItem('userInfo', JSON.stringify(data));
+            localStorage.setItem('userInfo', JSON.stringify(data.data));
         } else {
             dispatch({
                 type: USER_REGISTER_FAIL,
@@ -101,8 +106,6 @@ export const register = (first_name, last_name, email, password) => async (dispa
     }
 }
 
-
-
 export const getUserDetails = (id) => async (dispatch,getState) => {
     try {
         dispatch({
@@ -115,19 +118,19 @@ export const getUserDetails = (id) => async (dispatch,getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const { data } = await axios.get(
-            `users/${id}/`,
+        const { data, status } = await axios.get(
+            `/users/${id}/`,
             config
         )
-        if (data.status === 200) {
+        if (status === 200) {
             dispatch({
                 type: USER_DETAILS_SUCCESS,
-                payload: data.data,
+                payload: data,
             });          
         } else {
             dispatch({
                 type: USER_DETAILS_FAIL,
-                payload: data.detail || 'Registration failed.',
+                payload: data.detail || 'Failed to get user profile!',
             });
         }     
     
@@ -142,9 +145,6 @@ export const getUserDetails = (id) => async (dispatch,getState) => {
     }
 }
 
-
-
-
 export const updateUserProfile = (user) => async (dispatch,getState) => {
     try {
         dispatch({
@@ -157,12 +157,12 @@ export const updateUserProfile = (user) => async (dispatch,getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        const { data } = await axios.put(
-            `users/profile/`,
+        const {  data, status } = await axios.put(
+            `/users/profile/`,
             user,
             config
         )
-        if (data.status === 200) {
+        if (status === 200) {
             dispatch({
                 type: USER_UPDATE_PROFILE_SUCCESS,
                 payload: data.data,
@@ -171,7 +171,8 @@ export const updateUserProfile = (user) => async (dispatch,getState) => {
                 type: USER_LOGIN_SUCCESS,
                 payload: data.data
             });
-            localStorage.setItem('userInfo', JSON.stringify(data));
+
+            localStorage.setItem('userInfo', JSON.stringify(data.data));
         } else {
             dispatch({
                 type: USER_UPDATE_PROFILE_FAIL,

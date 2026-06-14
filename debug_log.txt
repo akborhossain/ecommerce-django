@@ -1,0 +1,125 @@
+=== DEBUG ORDER TRACKING ===
+Total orders count: 41
+Order #41: isPaid=True, isDelivered=True, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): delivered
+  tracking_events: [{'id': 7, 'status': 'confirmed', 'timestamp': datetime.datetime(2026, 6, 13, 17, 2, 49, 585837, tzinfo=datetime.timezone.utc)}, {'id': 8, 'status': 'delivered', 'timestamp': datetime.datetime(2026, 6, 13, 17, 7, 23, 554845, tzinfo=datetime.timezone.utc)}]
+Order #40: isPaid=True, isDelivered=True, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): processing
+  tracking_events: [{'id': 1, 'status': 'confirmed', 'timestamp': datetime.datetime(2026, 6, 13, 15, 26, 4, 64739, tzinfo=datetime.timezone.utc)}, {'id': 2, 'status': 'processing', 'timestamp': datetime.datetime(2026, 6, 13, 15, 26, 43, 380487, tzinfo=datetime.timezone.utc)}, {'id': 3, 'status': 'shipped', 'timestamp': datetime.datetime(2026, 6, 13, 15, 27, 1, 156509, tzinfo=datetime.timezone.utc)}, {'id': 4, 'status': 'delivered', 'timestamp': datetime.datetime(2026, 6, 13, 15, 27, 8, 881148, tzinfo=datetime.timezone.utc)}, {'id': 5, 'status': 'processing', 'timestamp': datetime.datetime(2026, 6, 13, 16, 1, 19, 261037, tzinfo=datetime.timezone.utc)}, {'id': 6, 'status': 'processing', 'timestamp': datetime.datetime(2026, 6, 13, 16, 1, 51, 461930, tzinfo=datetime.timezone.utc)}]
+Order #39: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #38: isPaid=True, isDelivered=True, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #37: isPaid=True, isDelivered=True, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): delivered
+  tracking_events: [{'id': 9, 'status': 'confirmed', 'timestamp': datetime.datetime(2026, 6, 13, 17, 8, 29, 787994, tzinfo=datetime.timezone.utc)}, {'id': 10, 'status': 'processing', 'timestamp': datetime.datetime(2026, 6, 13, 17, 8, 33, 560375, tzinfo=datetime.timezone.utc)}, {'id': 11, 'status': 'shipped', 'timestamp': datetime.datetime(2026, 6, 13, 17, 8, 38, 419725, tzinfo=datetime.timezone.utc)}, {'id': 12, 'status': 'out_for_delivery', 'timestamp': datetime.datetime(2026, 6, 13, 17, 8, 47, 832403, tzinfo=datetime.timezone.utc)}, {'id': 13, 'status': 'delivered', 'timestamp': datetime.datetime(2026, 6, 13, 17, 9, 8, 883207, tzinfo=datetime.timezone.utc)}]
+Order #36: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=True
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #35: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #34: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #33: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #32: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #31: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #30: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #29: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #28: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #27: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #26: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #25: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #24: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #23: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #22: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #21: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #20: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #19: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #18: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #17: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #16: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #15: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #14: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #13: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #12: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #11: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #10: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #9: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #8: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #7: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #6: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #5: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #4: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #3: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #2: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
+Order #1: isPaid=False, isDelivered=False, isCancelled=False, deliveryFailed=False
+  latest_tracking_status (annotated): None
+  tracking_events: []
