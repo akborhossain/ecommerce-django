@@ -38,10 +38,22 @@ export const listProducts = (queryString = '') => async (dispatch) => {
 };
 
 
-export const listProductDetails = (id) => async (dispatch) => {
+export const listProductDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`/products/${id}/`);
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {};
+    if (userInfo && userInfo.token) {
+      config.headers = {
+        Authorization: `Bearer ${userInfo.token}`,
+      };
+    }
+
+    const { data } = await axios.get(`/products/${id}/`, config);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,

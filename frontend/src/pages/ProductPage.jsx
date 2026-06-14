@@ -48,7 +48,7 @@ function ProductPage() {
     }
     dispatch(listProductDetails(id));
     setActiveImageIndex(0);
-  }, [dispatch, id, successProductReview]);
+  }, [dispatch, id, successProductReview, userInfo]);
 
   const addToCartHandler = () => {
     navigate(`/cart/${id}?qty=${qty}`);
