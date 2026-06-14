@@ -8,6 +8,9 @@ urlpatterns=[
     path('users/profile/', UserProfileView.as_view()),
     path('users/',UserView.as_view()),
     path('products/', ProductView.as_view()),
+    path('products/categories/', CategoryListView.as_view(), name='product-categories'),
+    path('products/top/', TopProductsView.as_view(), name='top-products'),
+    path('products/<str:pk>/reviews/', CreateProductReview.as_view(), name='create-review'),
     path('products/<str:pk>/', ProductView.as_view()),
 
 ]

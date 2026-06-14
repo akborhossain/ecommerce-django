@@ -46,7 +46,7 @@ export const login = (email, password) => async (dispatch) => {
         dispatch({
             type: USER_LOGIN_FAIL,
             payload: error.response && error.response.data.detail
-                ? error.response.data.datail
+                ? error.response.data.detail
                 : error.message,
         })
     }
@@ -73,7 +73,7 @@ export const register = (first_name, last_name, email, password) => async (dispa
             }
         }
         const { data } = await axios.post(
-            'users/register/',
+            '/users/register/',
             { 'first_name':first_name, 'last_name':last_name, 'email': email, 'password': password },
             config
         )
@@ -87,7 +87,7 @@ export const register = (first_name, last_name, email, password) => async (dispa
                 payload: data.data
             });
             
-            localStorage.setItem('userInfo', JSON.stringify(data));
+            localStorage.setItem('userInfo', JSON.stringify(data.data));
         } else {
             dispatch({
                 type: USER_REGISTER_FAIL,
@@ -106,8 +106,6 @@ export const register = (first_name, last_name, email, password) => async (dispa
     }
 }
 
-
-
 export const getUserDetails = (id) => async (dispatch,getState) => {
     try {
         dispatch({
@@ -121,7 +119,7 @@ export const getUserDetails = (id) => async (dispatch,getState) => {
             }
         }
         const { data, status } = await axios.get(
-            `users/${id}/`,
+            `/users/${id}/`,
             config
         )
         if (status === 200) {
@@ -147,9 +145,6 @@ export const getUserDetails = (id) => async (dispatch,getState) => {
     }
 }
 
-
-
-
 export const updateUserProfile = (user) => async (dispatch,getState) => {
     try {
         dispatch({
@@ -163,7 +158,7 @@ export const updateUserProfile = (user) => async (dispatch,getState) => {
             }
         }
         const {  data, status } = await axios.put(
-            `users/profile/`,
+            `/users/profile/`,
             user,
             config
         )
@@ -177,7 +172,7 @@ export const updateUserProfile = (user) => async (dispatch,getState) => {
                 payload: data.data
             });
 
-            localStorage.setItem('userInfo', JSON.stringify(data));
+            localStorage.setItem('userInfo', JSON.stringify(data.data));
         } else {
             dispatch({
                 type: USER_UPDATE_PROFILE_FAIL,
