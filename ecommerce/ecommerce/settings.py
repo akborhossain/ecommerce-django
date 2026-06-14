@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     "corsheaders",
     #"product.apps.ProductConfig",
     "product",
+    "orders",
+    "accounts",
 ]
 
 REST_FRAMEWORK = {
@@ -172,3 +174,17 @@ MEDIA_ROOT= 'static/images'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_ALL_ORIGINS=True
+
+# Celery Configuration Options
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Dhaka'
+
+# Development mode: run tasks synchronously (no Redis/worker needed)
+# Set to False in production when Redis + Celery workers are running
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = False  # Task errors won't crash the view
+

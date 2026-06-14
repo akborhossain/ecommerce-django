@@ -1,0 +1,71 @@
+1. High-Level System Architecture
+To handle millions of products and thousands of concurrent users during a flash sale, your infrastructure must be broken down into specialized layers:
+
+Frontend (React): Built using Vite (for a fast SPA) or Next.js (if you want React with Server-Side Rendering for heavy SEO). It communicates with Django via Axios or TanStack Query.
+
+Backend API (Django REST Framework - DRF): Handles business logic, authentication, permissions, and complex workflows.
+
+Database (PostgreSQL): The gold standard for Django. It handles transactional operations (orders, users) flawlessly and natively supports high-performance JSON data.
+
+Task Queue (Celery + Redis): Vital for offloading heavy processes (sending order confirmation emails, calculating vendor commissions, updating search indexes) so your main API stays blazing fast.
+
+Caching & Session (Redis): Caches popular product details and homepage layouts to keep database hits to a minimum.
+
+2. World-Class Design Concepts (The Django & React Way)
+The Flexible Product Catalog (PostgreSQL JSONField)
+In a multi-category store, a smartphone has a "RAM" attribute, while a shoe has a "Size" attribute. Instead of creating messy database tables for every product type, utilize Django’s native models.JSONField() paired with PostgreSQL. This allows you to store dynamic, category-specific attributes in a single database column while keeping the ability to filter through them instantly.
+
+Preventing Inventory Race Conditions
+During a massive discount event, two users might click "Buy Now" at the exact same millisecond for the last remaining item. Django handles this beautifully using database-level locking. By implementing .select_for_update() inside a atomic database transaction, Django locks the product row until the first user's checkout finishes, completely preventing overselling.
+
+Optimized Database Queries (Avoiding the N+1 Problem)
+Django's ORM is incredibly powerful, but if you aren't careful, fetching 20 products with their images and vendor details can trigger 60+ database queries. Using .select_related() and .prefetch_related() in your DRF views ensures that all related data is fetched in a single, optimized SQL query.
+
+3. Production-Ready Master Prompts (React + Django)
+Here are the modular blueprints you can feed into your AI coding assistant to build this step-by-step.
+
+Prompt 1: The Multi-Vendor & Dynamic Category Schema
+Plaintext
+Act as a Principal Python Architect specializing in Django and PostgreSQL. I am building a world-class multi-vendor e-commerce platform like Daraz using React for the frontend and Django REST Framework (DRF) for the backend.
+
+Task: Design the Django models for the Product Catalog.
+Requirements:
+1. Category Hierarchy: Implement a self-referencing Category model to support multi-level subcategories (e.g., Electronics -> Audio -> Earbuds).
+2. Multi-Vendor: A Vendor/Store model that links directly to products.
+3. Dynamic Attributes: Use PostgreSQL-compatible `models.JSONField` to handle diverse category specifications (e.g., laptops vs. clothing) without altering the schema.
+4. Product Variants: Design a system where a single product can have multiple variants (e.g., iPhone 15 in Blue-128GB vs. Black-256GB). Each variant must track its own unique SKU, price, images, and inventory stock.
+
+Provide clean, modular Django models code, complete with proper Meta choices, indexing on frequently queried fields (like SKU, price, and category), and string representations.
+Prompt 2: Optimized DRF APIs with Complex Filtering
+Plaintext
+Act as a Senior Backend Engineer specializing in Django REST Framework (DRF). We have our product and variant models ready for our marketplace. 
+
+Task: Create the API views and serializers to serve the product catalog to our React frontend.
+Requirements:
+1. Write a `ProductListView` using DRF's `ReadOnlyModelViewSet` or Generic Views.
+2. Integrate advanced filtering using `django-filter` or custom filter backends. The API must allow filtering by Category (including all items in its subcategories), Price Range, Vendor, and specific keys inside the dynamic attributes JSON field.
+3. Optimize the database hits! Use `select_related` and `prefetch_related` inside `get_queryset()` to solve the N+1 query problem for product variants, images, and vendors.
+4. Include standard pagination and sorting choices (e.g., popularity, price low-to-high, newest arrivals).
+
+Provide the serializers, filter classes, and views.
+Prompt 3: React Dynamic Filter Sidebar & Grid
+Plaintext
+Act as an Expert Frontend Developer specializing in React and Tailwind CSS. We are building the catalog browsing page for our Daraz/Amazon clone.
+
+Task: Build a highly responsive Product Listing Page (PLP) component.
+Requirements:
+1. Sidebar Filters: A dynamic filter sidebar component that handles category trees, a price range slider, and dynamic attribute checkboxes (e.g., Brand, Size, Color).
+2. Layout: A clean, responsive grid layout matching a world-class marketplace. On mobile, the sidebar must transform into a smooth slide-out drawer.
+3. State Management: Use modern React state (or TanStack Query / React Query) to sync the active filters directly with URL query parameters so users can share or bookmark filtered pages.
+4. Loading States: Include beautiful Tailwind skeleton loaders for the product cards while data fetching is in progress.
+
+Provide the clean, reusable functional components using modern React patterns.
+Prompt 4: Celery Task Pipeline & Transactional Checkout
+Plaintext
+Act as a Python Systems Engineer. I need to build the checkout backend pipeline for our Django marketplace ensuring complete data integrity during heavy traffic flash sales.
+
+Task: Implement a secure checkout API endpoint and an asynchronous background task pipeline.
+Requirements:
+1. Inventory Lock: Use Django's `transaction.atomic()` and `select_for_update()` to safely decrement product variant stock during order placement, ensuring no two users can double-buy the same stock.
+2. Asynchronous Processing: Once an order is successfully created in the database, offload the non-critical tasks (sending customer email receipts, triggering vendor dashboard alerts) to a Celery background task using Redis as the message broker.
+3. Provide the full view logic for the Order Creation API and the corresponding `tasks.py` file for Celery.
